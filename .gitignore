@@ -1,0 +1,56 @@
+# ============================================================
+# RepoMind – root .gitignore
+# (client/ and backend/ also keep their own, more specific ones)
+# ============================================================
+
+# --- Secrets & local environment (NEVER commit real values) ---
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+secrets/
+
+# --- OS files ---
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# --- IDEs / editors ---
+.idea/
+.vscode/
+*.iml
+*.iws
+*.ipr
+*.swp
+*.swo
+.project
+.classpath
+.settings/
+
+# --- Logs ---
+*.log
+logs/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# --- Node / Next.js (client) ---
+node_modules/
+.next/
+out/
+coverage/
+*.tsbuildinfo
+next-env.d.ts
+
+# --- Java / Maven (backend) ---
+target/
+!.mvn/wrapper/maven-wrapper.properties
+.mvn/wrapper/maven-wrapper.jar
+HELP.md
+
+# --- Archives & temp ---
+*.zip
+*.tar.gz
+tmp/
+temp/

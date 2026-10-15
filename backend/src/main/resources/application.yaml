@@ -1,0 +1,73 @@
+server:
+  port: ${PORT:8080}
+
+spring:
+  config:
+    import: optional:file:./.env[.properties]
+
+  application:
+    name: backend
+  datasource:
+    url: ${DATABASE_URL}
+    username: ${DATABASE_USERNAME}
+    password: ${DATABASE_PASSWORD}
+    driver-class-name: org.postgresql.Driver
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: ${SHOW_SQL:false}
+    properties:
+      hibernate:
+        format_sql: true
+
+  ai:
+    openai:
+      api-key: ${OPENAI_API_KEY}
+      chat:
+        model: gpt-4o-mini
+      embedding:
+        model: text-embedding-3-small
+
+    vectorstore:
+      pgvector:
+        initialize-schema: true
+        dimensions: 1536
+        index-type: HNSW
+        distance-type: COSINE_DISTANCE
+
+
+  security:
+    oauth2:
+      client:
+        registration:
+          github:
+            client-id: ${GITHUB_CLIENT_ID}
+            client-secret: ${GITHUB_CLIENT_SECRET}
+            scope: read:user,repo
+        provider:
+          github:
+            user-name-attribute: id
+
+
+  servlet:
+    session:
+      cookie:
+        name: REPOMIND_SESSION
+        http-only: true
+        same-site: lax
+      timeout: 7d
+
+
+app:
+  frontend-url: ${FRONTEND_URL:http://localhost:3000}
+  cors:
+    allowed-origins: ${CORS_ALLOWED_ORIGIN:http://localhost:3000}
+  token-encryptor-password: ${TOKEN_ENCRYPTOR_PASSWORD:repomind-local-encrypt-key-change-me}
+  token-encryptor-salt: ${TOKEN_ENCRYPTOR_SALT:deadbeefcafebabe}
+  indexing:
+    max-file-bytes: 102400
+    chunk-size: 800
+    chunk-overlap: 100
+  github:
+    api-delay-ms: 50
